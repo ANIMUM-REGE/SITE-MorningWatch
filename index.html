@@ -4,60 +4,264 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Morning Watch — a quiet daily devotional</title>
-<meta name="description" content="One short devotional every morning: a scripture passage, a plain-spoken reflection, and a one-line prayer. No ads, no gimmicks.">
+<meta name="description" content="One short devotional every morning: a scripture passage, a plain-spoken reflection, and a one-line prayer. No ads, no accounts, no tracking. On the App Store and Google Play.">
+<meta property="og:title" content="Morning Watch — a quiet daily devotional">
+<meta property="og:description" content="A passage, a short reflection, and a one-line prayer, every morning. Made for men who want a steady start to the day.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%85%3C/text%3E%3C/svg%3E">
 <style>
-  :root { --pine:#1C4234; --gold:#DEB252; --paper:#FAF6EE; --ink:#1F1C1A; }
-  body { margin:0; font:17px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-         color:var(--ink); background:var(--paper); }
-  .wrap { max-width:680px; margin:0 auto; padding:56px 24px 80px; }
-  h1 { font-family:Georgia,serif; font-size:2.4rem; color:var(--pine); margin-bottom:.2em; }
-  h2 { font-family:Georgia,serif; color:var(--pine); margin-top:2em; }
-  .verse { font-family:Georgia,serif; font-size:1.25rem; color:var(--pine);
-           border-left:3px solid var(--gold); padding-left:16px; margin:1.6em 0; }
-  .muted { opacity:.65; font-size:.9rem; }
-  a { color:var(--pine); }
-  .sun { font-size:2.2rem; }
-  footer { margin-top:4em; font-size:.9rem; opacity:.75; }
-  footer a { margin-right:14px; }
+  :root {
+    color-scheme: light dark;
+    --pine:      #1C4234;
+    --pine-deep: #12291F;
+    --gold:      #DEB252;
+    --gold-soft: #EBCB86;
+    --paper:     #FAF6EE;
+    --card:      #FFFFFF;
+    --ink:       #211E1B;
+    --muted:     #6E6558;
+    --line:      #E7DFD0;
+    --on-pine:   #F3EEE2;
+    --on-pine-muted: #C7CFBE;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #17130E; --card: #201A14; --ink: #F0EADF; --muted: #A79E8E;
+      --line: #33291E; --pine: #234E3D; --pine-deep: #0C1D15;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--paper); color: var(--ink);
+    font-size: 18px; line-height: 1.6;
+  }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+  a { color: var(--pine); }
+  @media (prefers-color-scheme: dark) { a { color: var(--gold-soft); } }
+  a:focus-visible, .badges a:focus-visible, .btn:focus-visible {
+    outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px;
+  }
+
+  /* ---- Hero: pine ground, dawn light rising at the horizon ---- */
+  .hero {
+    background:
+      radial-gradient(120% 90% at 50% 118%, rgba(222,178,82,.28) 0%, rgba(222,178,82,0) 55%),
+      linear-gradient(180deg, var(--pine-deep) 0%, var(--pine) 100%);
+    color: var(--on-pine);
+    text-align: center;
+    padding: 4.5rem 24px 3.75rem;
+  }
+  .sun { font-size: 2.5rem; line-height: 1; }
+  .hero h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 600; font-size: clamp(2.5rem, 7vw, 3.6rem);
+    letter-spacing: .01em; margin: .55rem 0 .25rem; color: #fff;
+  }
+  .hero .tagline {
+    color: var(--on-pine-muted);
+    max-width: 32rem; margin: 0 auto 2.1rem;
+    font-size: 1.12rem;
+  }
+
+  .badges { display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap; }
+  .badges a { display: inline-block; line-height: 0; transition: transform .15s ease, opacity .15s ease; }
+  .badges a:hover { transform: translateY(-2px); }
+  .badges img.appstore { height: 54px; }
+  .badges img.googleplay { height: 80px; margin: -13px 0; }
+  .avail { margin: 1.4rem 0 0; font-size: .9rem; color: var(--on-pine-muted); }
+
+  /* ---- Signature verse: the namesake, set quiet on paper ---- */
+  .verse {
+    text-align: center; padding: 3.5rem 24px 3rem; max-width: 40rem; margin: 0 auto;
+  }
+  .verse::before {
+    content: ""; display: block; width: 44px; height: 2px;
+    background: var(--gold); margin: 0 auto 1.9rem;
+  }
+  .verse blockquote {
+    font-family: Georgia, "Times New Roman", serif; font-style: italic;
+    font-size: clamp(1.35rem, 3.4vw, 1.7rem); line-height: 1.5;
+    color: var(--pine); margin: 0;
+  }
+  @media (prefers-color-scheme: dark) { .verse blockquote { color: var(--gold-soft); } }
+  .verse cite { display: block; font-style: normal; font-size: .95rem; color: var(--muted); margin-top: 1.1rem; letter-spacing: .02em; }
+
+  /* ---- Screenshot gallery ---- */
+  .shots { padding: 1rem 0 3.5rem; }
+  .shot-scroll {
+    display: flex; justify-content: safe center; gap: 1.5rem;
+    overflow-x: auto; padding: 1rem 24px 1.75rem;
+    scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+  }
+  .shot-scroll figure {
+    flex: 0 0 auto; width: 232px; margin: 0; scroll-snap-align: center; text-align: center;
+  }
+  .shot-scroll img {
+    width: 100%; display: block; border-radius: 26px;
+    border: 1px solid var(--line);
+    box-shadow: 0 18px 40px rgba(18,41,31,.18);
+  }
+  .shot-scroll figcaption { margin-top: 1rem; }
+  .shot-scroll .cap-title {
+    font-family: Georgia, serif; font-size: 1.12rem; color: var(--ink); display: block;
+  }
+  .shot-scroll .cap-sub { display: block; color: var(--muted); font-size: .92rem; margin-top: .3rem; line-height: 1.45; }
+
+  /* ---- What's inside ---- */
+  .inside { background: var(--card); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 4rem 0; }
+  .inside h2, .pro h2 { font-family: Georgia, serif; font-weight: 600; text-align: center; font-size: 1.9rem; margin: 0 0 2.5rem; color: var(--pine); }
+  @media (prefers-color-scheme: dark) { .inside h2, .pro h2 { color: var(--gold-soft); } }
+  .features { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem 2.75rem; }
+  @media (max-width: 680px) { .features { grid-template-columns: 1fr; gap: 2rem; } }
+  .feature { display: flex; gap: 1rem; align-items: flex-start; }
+  .feature .mark {
+    flex: 0 0 auto; width: 2.4rem; height: 2.4rem; border-radius: 12px;
+    background: rgba(222,178,82,.16); color: var(--pine);
+    display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+  }
+  @media (prefers-color-scheme: dark) { .feature .mark { color: var(--gold-soft); } }
+  .feature h3 { margin: .15rem 0 .3rem; font-size: 1.08rem; }
+  .feature p { margin: 0; color: var(--muted); font-size: .98rem; }
+
+  /* ---- Pro + privacy ---- */
+  .pro { padding: 4rem 0 1rem; }
+  .pro .lede, .privacy p { max-width: 34rem; margin-left: auto; margin-right: auto; text-align: center; color: var(--ink); }
+  .pro .lede { font-size: 1.08rem; }
+  .pro .free { color: var(--pine); font-weight: 600; }
+  @media (prefers-color-scheme: dark) { .pro .free { color: var(--gold-soft); } }
+  .privacy { padding: 3rem 0 4rem; text-align: center; }
+  .privacy .mark { font-size: 1.6rem; }
+  .privacy p { color: var(--muted); font-size: 1rem; }
+
+  footer { background: var(--pine-deep); color: var(--on-pine-muted); text-align: center; padding: 2.75rem 24px 3rem; font-size: .92rem; }
+  footer a { color: var(--on-pine); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+  footer .links { margin-top: .7rem; }
+  footer .links a { margin: 0 .7rem; display: inline-block; }
+  footer .copy { margin-top: 1.1rem; color: var(--on-pine-muted); opacity: .8; }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="sun">🌅</div>
+
+<header class="hero">
+  <div class="sun" aria-hidden="true">🌅</div>
   <h1>Morning Watch</h1>
-  <p class="muted">A quiet daily devotional, by Animum Rege Studio</p>
+  <p class="tagline">One short devotional every morning — a passage, a plain-spoken reflection, and a one-line prayer. Made for men who want a steady start to the day.</p>
 
-  <p class="verse">“My soul waits for the Lord more than watchmen wait for the morning.”<br>
-  <span class="muted">Psalm 130:6</span></p>
+  <div class="badges">
+    <a href="https://apps.apple.com/us/app/morning-watch/id6793742664" aria-label="Download Morning Watch on the App Store">
+      <img class="appstore" src="assets/badges/app-store-badge.svg" alt="Download on the App Store" width="162" height="54">
+    </a>
+    <a href="https://play.google.com/store/apps/details?id=com.animumrege.morningwatch" aria-label="Get Morning Watch on Google Play">
+      <img class="googleplay" src="assets/badges/google-play-badge.png" alt="Get it on Google Play" width="270" height="80">
+    </a>
+  </div>
+  <p class="avail">Free every day, on iPhone and Android.</p>
+</header>
 
-  <p>One short devotional every morning: a scripture passage, a plain-spoken reflection,
-  and a one-line prayer. Written for men who want a steady start to the day —
-  large print, no ads, no noise.</p>
+<section class="verse" aria-label="Scripture">
+  <blockquote>“My soul waits for the Lord more than watchmen wait for the morning.”</blockquote>
+  <cite>Psalm 130:6</cite>
+</section>
 
-  <h2>What's in it</h2>
-  <p>Scripture from the King James Version and the World English Bible (both public
-  domain — choose in Settings). A reading streak that encourages without nagging.
-  Save the entries that matter to you. An optional morning reminder that carries
-  the day's verse.</p>
+<section class="shots" aria-label="Screenshots">
+  <div class="shot-scroll">
+    <figure>
+      <img src="assets/screenshots/today.png" alt="Morning Watch Today screen: a scripture passage, a short reflection, and a one-line prayer.">
+      <figcaption>
+        <span class="cap-title">Today</span>
+        <span class="cap-sub">A passage, a short reflection, and a prayer — the whole morning on one screen.</span>
+      </figcaption>
+    </figure>
+    <figure>
+      <img src="assets/screenshots/saved.png" alt="Morning Watch Saved screen listing devotionals the reader has kept.">
+      <figcaption>
+        <span class="cap-title">Saved</span>
+        <span class="cap-sub">Keep the entries that stay with you, and return to them anytime.</span>
+      </figcaption>
+    </figure>
+    <figure>
+      <img src="assets/screenshots/plans.png" alt="Morning Watch reading plans screen with themed plans to follow.">
+      <figcaption>
+        <span class="cap-title">Reading plans</span>
+        <span class="cap-sub">Follow a themed plan through Scripture, at your own pace.</span>
+      </figcaption>
+    </figure>
+    <figure>
+      <img src="assets/screenshots/settings.png" alt="Morning Watch Settings screen: translation choice, morning reminder, and text size.">
+      <figcaption>
+        <span class="cap-title">Yours to set</span>
+        <span class="cap-sub">Choose your translation, set a morning reminder, and read in large print.</span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
 
-  <h2>Morning Watch Pro</h2>
-  <p>The daily devotional is free, every day. Pro adds the full archive, themed
-  reading plans, private notes with export, up to three daily reminders, and
-  read-aloud — with a 30-day free trial.</p>
+<section class="inside">
+  <div class="wrap">
+    <h2>What's inside</h2>
+    <div class="features">
+      <div class="feature">
+        <div class="mark" aria-hidden="true">📖</div>
+        <div>
+          <h3>Public-domain Scripture</h3>
+          <p>The King James Version and the World English Bible. Choose your translation in Settings.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="mark" aria-hidden="true">🔥</div>
+        <div>
+          <h3>A streak that encourages</h3>
+          <p>A gentle reading streak that keeps you steady, without nagging.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="mark" aria-hidden="true">🔖</div>
+        <div>
+          <h3>Save what matters</h3>
+          <p>Hold on to the entries you want to come back to, all in one place.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="mark" aria-hidden="true">🔔</div>
+        <div>
+          <h3>A morning reminder</h3>
+          <p>An optional notification that carries the day's verse to you.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <h2>Private by design</h2>
-  <p>Morning Watch collects nothing. No accounts, no analytics, no tracking —
-  your reading, streak, and notes never leave your phone.
-  <a href="privacy">Read the privacy policy</a>.</p>
+<section class="pro">
+  <div class="wrap">
+    <h2>Morning Watch Pro</h2>
+    <p class="lede"><span class="free">The daily devotional is free, every day.</span> Pro adds the full archive, themed reading plans, private notes you can export, up to three daily reminders, and read-aloud — free for 30 days.</p>
+  </div>
+</section>
 
-  <p class="muted">Coming to the App Store and Google Play.</p>
+<section class="privacy">
+  <div class="wrap">
+    <div class="mark" aria-hidden="true">🔒</div>
+    <p>Morning Watch collects nothing. No accounts, no analytics, no tracking — your reading, streak, and notes never leave your phone. <a href="privacy">Read the privacy policy</a>.</p>
+  </div>
+</section>
 
-  <footer>
+<footer>
+  <div>Questions? <a href="mailto:support@animumrege.com">support@animumrege.com</a></div>
+  <div class="links">
     <a href="privacy">Privacy</a>
     <a href="terms">Terms</a>
-    <a href="support">Support</a><br>
-    © 2026 Animum Rege LLC
-  </footer>
-</div>
+    <a href="support">Support</a>
+  </div>
+  <div class="copy">© 2026 Animum Rege LLC</div>
+</footer>
+
 </body>
 </html>
